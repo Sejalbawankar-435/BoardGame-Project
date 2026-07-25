@@ -15,7 +15,7 @@ pipeline {
   stages {
     stage('Git Checkout') {
       steps {
-        git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/patilpavan8333/BoardGame-Project.git'
+        git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/Sejalbawankar-435/BoardGame-Project.git'
       }
     }
 
@@ -52,7 +52,7 @@ pipeline {
                   -Dsonar.projectName=BoardGame \
                   -Dsonar.projectKey=BoardGame \
                   -Dsonar.java.binaries=. \
-                  -Dsonar.host.url=http://52.221.183.179:9000
+                  -Dsonar.host.url=http://43.204.234.108:9000
             '''
         }
     }
@@ -73,7 +73,7 @@ pipeline {
                 url: 'https://index.docker.io/v1/',
                 credentialsId: 'dockerhub-credentials'
             ]) {
-                sh 'docker build -t patil8333/boardshack:latest .'
+                sh 'docker build -t sejalbawankar204/boardshack:latest .'
             }
         }
     }
@@ -83,7 +83,7 @@ pipeline {
       steps {
         script {
           withDockerRegistry(credentialsId: 'dockerhub-credentials', toolName: 'docker') {
-              sh "docker push patil8333/boardshack:latest"
+              sh "docker push sejalbawankar204/boardshack:latest"
           }
         }
       }
@@ -157,7 +157,7 @@ pipeline {
         emailext (
           subject: "${jobName} - Build ${buildNumber} - ${pipelineStatus.toUpperCase()}",
           body: body,
-          to: 'patilpavan8333@gmail.com',
+          to: 'sejalbawankar204@gmail.com',
           from: 'jenkins@example.com',
           replyTo: 'jenkins@example.com',
           mimeType: 'text/html',
